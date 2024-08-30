@@ -114,6 +114,7 @@ def print_league_table():
     for team in league_data[1:]:
         t.add_row(team)
     print(t)
+    return t
 
 #this function will print the previous league results in a nice format
 def print_league_results():
@@ -122,6 +123,7 @@ def print_league_results():
     for game in results:
         t.add_row(game)
     print(t)
+    return t
 
 #this function will print the upcoming league fixtures in a nice format
 def print_league_fixtures():
@@ -130,6 +132,7 @@ def print_league_fixtures():
     for game in fixtures:
         t.add_row(game)
     print(t)
+    return t
 
 def main():
     #get and print league table data

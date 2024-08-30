@@ -48,6 +48,7 @@ def prem_tables():
         {{ prem_table_html|safe }}
         <h1>PL Fixtures</h1>
         {{ prem_fixtures_html|safe }}
+        <p>data sourced from the wonderful https://fbref.com/en/</p>
       </body>
     </html>
     """

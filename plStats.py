@@ -1,25 +1,37 @@
 import requests
 import bs4
 from prettytable import PrettyTable
+import time
 
 #this function will get the league table and return a list of lists that contain each row of data in the table
-def get_league_table():
-    #get html from the amazing fbref webiste
-    table_url = 'https://fbref.com/en/comps/9/Premier-League-Stats'
-    r = requests.get(table_url)
-    soup = bs4.BeautifulSoup(r.text, 'html.parser')
 
+#this structure is general and we can get data from any league we wish, not just the premier league
+
+#this format is general and can be used for any soccer league on fbref
+
+def get_league_table(league_url):
+    r = requests.get(league_url)
+    time.sleep(1)
+    soup = bs4.BeautifulSoup(r.text, 'html.parser')
     #get premier league table
     table = soup.find_all('table')[0]
     rows = table.find_all('tr')
-
+    
     #to count the team's rankings
     rank = 1
+    print(soup.find_all('h1')[0].text)
+    
+    #checks if the first table is the one we are looking for (ie has all 16 cell values)
+    table_id = 1
+    while(len(rows[1].find_all('td'))<16):
+        table = soup.find_all('table')[table_id]
+        rows = table.find_all('tr')
+        table_id+=1
+    
     headers = ['rank', 'name', 'MP','W','D','L','GF','GA','Pts','xG','xGA','Last 5','top scorer']
     #list to store team data for each team in the league
     league_data = []
     league_data.append(headers)
-
     for row in rows[1:]:
         #data to represent each team including rank, name, MP,W,D,L,GF,GA,Pts,xG,xGA,Last 5, and top scorer
         team_data = []
@@ -108,8 +120,8 @@ def get_league_fixtures():
     return results, fixtures
 
 #this function will print the league table in a nice format
-def print_league_table():
-    league_data = get_league_table()
+def print_league_table(league_url):
+    league_data = get_league_table(league_url)
     t = PrettyTable(league_data[0])
     for team in league_data[1:]:
         t.add_row(team)
@@ -134,13 +146,30 @@ def print_league_fixtures():
     print(t)
     return t
 
+def get_all_tables():
+    base_url = 'https://fbref.com/en/comps/'
+    #the url is based on an id, relevant leagues are from id 8-20
+    for i in range(8,20):
+        new_url = base_url+str(i)
+        try:
+            print_league_table(new_url)
+        except:
+            pass
+        time.sleep(7)
+
 def main():
-    #get and print league table data
-    print_league_table()
+    #get and print premier league table data
+    print_league_table('https://fbref.com/en/comps/9/Premier-League-Stats')
+    #get and print la liga table data
+    print_league_table('https://fbref.com/en/comps/12/La-Liga-Stats')
+
+
+
     #get and print the results
     print_league_results()
     #get and print the fixtures
     print_league_fixtures()
+
 
 if __name__ == '__main__':
     main()

@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def prem_tables():
-    league_data = get_league_table()
+    league_data = get_league_table('https://fbref.com/en/comps/9/Premier-League-Stats')
     t = PrettyTable(league_data[0])
     for team in league_data[1:]:
         t.add_row(team)

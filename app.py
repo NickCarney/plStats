@@ -54,3 +54,6 @@ def prem_tables():
     """
 
     return render_template_string(html_template, prem_table_html=prem_table_html, prem_fixtures_html=prem_fixtures_html)
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)

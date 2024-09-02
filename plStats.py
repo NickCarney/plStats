@@ -155,6 +155,7 @@ def get_all_tables():
             print_league_table(new_url)
         except:
             pass
+        #sleep so we do not overdo our requests
         time.sleep(7)
 
 def main():
@@ -163,7 +164,8 @@ def main():
     #get and print la liga table data
     print_league_table('https://fbref.com/en/comps/12/La-Liga-Stats')
 
-
+    #print around 10 different league tables
+    get_all_tables()
 
     #get and print the results
     print_league_results()

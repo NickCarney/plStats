@@ -3,4 +3,3 @@ requests
 bs4
 prettytable
 pandas
-sklearn

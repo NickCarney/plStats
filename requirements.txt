@@ -2,6 +2,5 @@ Flask==3.0.0
 requests
 bs4
 prettytable
-time
 pandas
 sklearn

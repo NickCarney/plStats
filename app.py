@@ -1,5 +1,6 @@
 from flask import Flask, render_template_string
 from plStats import *
+from plPredict import *
 
 
 app = Flask(__name__)
@@ -22,6 +23,8 @@ def prem_tables():
         t2.add_row(game)
 
     prem_fixtures_html = t2.get_html_string()
+
+    prediction = final_rankings['name','predicted_rank'].get_html_string()
 
     html_template = """
     <!doctype html>
@@ -48,6 +51,8 @@ def prem_tables():
         {{ prem_table_html|safe }}
         <h1>PL Fixtures</h1>
         {{ prem_fixtures_html|safe }}
+        <h1>Predictions</h1>
+        {{ prediction|safe }}
         <p>data sourced from the wonderful https://fbref.com/en/</p>
       </body>
     </html>

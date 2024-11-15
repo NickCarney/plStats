@@ -3,4 +3,7 @@ Flask==3.1.0
 pandas
 prettytable
 requests
-
+sklearn.model_selection
+sklearn.preprocessing
+sklearn.linear_model
+sklearn.metrics
